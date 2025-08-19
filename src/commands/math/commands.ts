@@ -1747,6 +1747,8 @@ class Matrix extends Environment {
   parentheses = { left: '[', right: ']' };
   blocks: MatrixCell[] = [];
   rowSize: number = 0;
+  mathspeakTemplate: string[];
+  ariaLabel = 'matrix';
 
   constructor(
     leftParentheses: string,
@@ -1941,6 +1943,7 @@ class Matrix extends Environment {
     table.toggleClass('mq-rows-1', table.find('tr').length === 1);
     */
     this.relink();
+    this.updateMathspeakTemplate();
   }
   // Enter the matrix at the top or bottom row if updown is configured.
   getEntryPoint(dir: Direction, updown?: 'up' | 'down') {
@@ -2026,6 +2029,40 @@ class Matrix extends Environment {
 
     // set start and end blocks of matrix
     this.setEnds({ [L]: blocks[0], [R]: blocks[blocks.length - 1] });
+  }
+  updateMathspeakTemplate() {
+    var rowcnt = Math.floor(this.blocks.length / this.rowSize);
+    var colcnt = this.rowSize;
+
+    var newTemplate: string[] = [];
+
+    function toOrdinal(n: number) {
+      const s = ['th', 'st', 'nd', 'rd'];
+      const v = n % 100;
+      return n + (s[(v - 20) % 10] || s[v] || s[0]);
+    }
+
+    for (let i = 0; i < this.blocks.length; i++) {
+      const currow = Math.floor(i / this.rowSize) + 1;
+      const curcol = (i % this.rowSize) + 1;
+
+      var thistext = '';
+      if (curcol === 1) {
+        thistext += toOrdinal(currow) + ' Row ';
+      }
+      thistext += toOrdinal(curcol) + ' Column';
+
+      if (i == 0) {
+        newTemplate.push(
+          'Start ' + rowcnt + ' By ' + colcnt + ' Matrix ' + thistext
+        );
+      } else {
+        newTemplate.push(thistext);
+      }
+    }
+    newTemplate.push('EndMatrix');
+
+    this.mathspeakTemplate = newTemplate;
   }
   // Ensure consistent row lengths
   autocorrect() {

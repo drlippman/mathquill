@@ -34,13 +34,6 @@ var SVG_SYMBOLS = {
   ']': {
     width: '.55em',
     html: () =>
-      h('svg', { preserveAspectRatio: 'none', viewBox: '0 0 11 24' }, [
-        h('path', { d: 'M3 0 L8 0 L8 24 L3 24 L3 23 L7 23 L7 1 L3 1' }),
-      ]),
-  },
-  '(': {
-    width: '.55em',
-    html: () =>
       h('svg', { preserveAspectRatio: 'none', viewBox: '0 0 100 100' }, [
         h('path', {
           'vector-effect': 'non-scaling-stroke',
@@ -48,6 +41,15 @@ var SVG_SYMBOLS = {
           stroke: 'black',
           fill: 'none',
           d: 'M30 1.5 L70 1.5 L70 98.5 L30 98.5',
+        }),
+      ]),
+  },
+  '(': {
+    width: '.55em',
+    html: () =>
+      h('svg', { preserveAspectRatio: 'none', viewBox: '3 0 106 186' }, [
+        h('path', {
+          d: 'M85 0 A61 101 0 0 0 85 186 L75 186 A75 101 0 0 1 75 0',
         }),
       ]),
   },

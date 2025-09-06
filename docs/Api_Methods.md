@@ -200,11 +200,11 @@ mathField.matrixCmd('new','bmatrix',3,2); // inserts a 3x2 bracketed matrix at t
 ```
 
 Altering shape:
-- `.matrixCmd('insertRow')` inserts a row after the row that holds the cursor
-- `.matrixCmd('insertRow', -1)` inserts a row before the row that holds the cursor
+- `.matrixCmd('addRow')` inserts a row after the row that holds the cursor
+- `.matrixCmd('addRow', -1)` inserts a row before the row that holds the cursor
 - `.matrixCmd('deleteRow')` deletes the row that holds the cursor
-- `.matrixCmd('insertColumn')` inserts a column after the column that holds the cursor
-- `.matrixCmd('insertColumn', -1)` inserts a column before the column that holds the cursor
+- `.matrixCmd('addColumn')` inserts a column after the column that holds the cursor
+- `.matrixCmd('addColumn', -1)` inserts a column before the column that holds the cursor
 - `.matrixCmd('deleteColumn')` deletes the row that holds the cursor
 
 ## .select()

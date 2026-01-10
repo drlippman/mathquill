@@ -1908,28 +1908,36 @@ class Matrix extends Environment {
             blocks.push(itemi);
           } else {
             addCell();
+            // if we're on a delimiter and (it's the first item or previous item was a column or row delimiter)
+            // then we have an empty cell
             if (
-              (itemi === self.delimiters.column &&
-                (i == 0 ||
-                  items[i - 1] === self.delimiters.column ||
-                  items[i - 1] === self.delimiters.row)) ||
-              (itemi === self.delimiters.row &&
-                i > 0 &&
-                items[i - 1] === self.delimiters.column)
+              (itemi === self.delimiters.column ||
+                itemi === self.delimiters.row) &&
+              (i == 0 ||
+                items[i - 1] === self.delimiters.column ||
+                items[i - 1] === self.delimiters.row)
             ) {
               // two in a row; empty cell
               self.blocks.push(new MatrixCell(row, self));
               cellcnt++;
             }
-            if (itemi === self.delimiters.column && i === items.length - 1) {
-              self.blocks.push(new MatrixCell(row, self));
-              cellcnt++;
-            }
+
             if (itemi === self.delimiters.row) {
               if (row == 0) {
                 self.rowSize = cellcnt;
               }
               row += 1;
+            }
+
+            // if we're on a delimiter and it's the last item
+            // then we have an empty cell.  This would happen after the new row increment above
+            if (
+              (itemi === self.delimiters.column ||
+                itemi === self.delimiters.row) &&
+              i === items.length - 1
+            ) {
+              self.blocks.push(new MatrixCell(row, self));
+              cellcnt++;
             }
           }
         }

@@ -578,10 +578,10 @@ class SupSub extends MathCommand {
         // Take the max (lower on page) of these
         targetTop = Math.max(default_top, clearance_top);
         if (!this.sup) {
+          sub.style.marginTop = '0px';
           shiftUp = supsubRect.top - targetTop;
         } else {
           // if both, use margin-top to space
-          console.log(targetBottom + ',' + targetTop);
           sub.style.marginTop = Math.max(0, targetTop - targetBottom) + 'px';
         }
       }
